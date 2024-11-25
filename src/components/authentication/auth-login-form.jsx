@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "./../authentication/password-input";
 import { LoaderCircle } from 'lucide-react';
 import { postDataV2, urls } from "../../lib/utils";
+import { AuthContext } from "./auth-context";
 
 export function AuthLoginForm({ className = "", ...props }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,22 +14,30 @@ export function AuthLoginForm({ className = "", ...props }) {
   async function onSubmit(event) {
     event.preventDefault();
     setIsLoading(true);
+
     try {
-      const data = await postDataV2(urls.login, { email, password });
-      if (data.errors) {
-        alert("Invalid credentials");
-        return;
-      }
-      // Assurez-vous d'avoir authContext configuré si utilisé
-      authContext.login();
-      navigate("/");
+        // Appel API
+        const response = await postDataV2(urls.login, { email, password });
+
+        // Vérification du statut de la réponse
+        if (!response || response.status !== 200 ) {
+            alert("Invalid credentials");
+            return;
+        }
+
+        AuthContext.login();
+
+        // Navigation vers la page principale
+        navigate("/");
+
     } catch (error) {
-      console.error("Login failed:", error);
-      alert("An error occurred. Please try again.");
+        // Gestion des erreurs
+        console.error("Login failed:", error);
+        alert("An error occurred. Please try again.");
     } finally {
-      setIsLoading(false);
+        setIsLoading(false); // Arrêter le spinner de chargement
     }
-  }
+}
 
   return (
     <div className={`grid gap-6 ${className}`} {...props}>

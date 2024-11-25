@@ -1,5 +1,8 @@
-export const urls = {
 
+export const urls = {
+  register:'auth/register',
+  login:'auth/login',
+  logout:'auth/logout'
 };
 
 export async function getData(url) {

@@ -10,6 +10,9 @@ export function AuthRegisterForm({ className = "", ...props }) {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [username, setUsername] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+
   const navigate = useNavigate();
 
   async function onSubmit(event) {
@@ -23,7 +26,7 @@ export function AuthRegisterForm({ className = "", ...props }) {
     }
 
     try {
-      await postDataV2(urls.register, { username, email, password });
+      await postDataV2(urls.register, { username,firstname,lastname, email, password });
       console.log("Registered successfully");
       navigate("/login");
     } catch (error) {
@@ -45,6 +48,28 @@ export function AuthRegisterForm({ className = "", ...props }) {
               autoCapitalize="none"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              className="w-full rounded-md border border-gray-300 p-2 text-sm placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            />
+          </div>
+          <div className="grid gap-1">
+            <input
+              id="firstname"
+              placeholder="Firstname"
+              type="text"
+              autoCapitalize="none"
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
+              className="w-full rounded-md border border-gray-300 p-2 text-sm placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            />
+          </div>
+          <div className="grid gap-1">
+            <input
+              id="lastname"
+              placeholder="Lastname"
+              type="text"
+              autoCapitalize="none"
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
               className="w-full rounded-md border border-gray-300 p-2 text-sm placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
