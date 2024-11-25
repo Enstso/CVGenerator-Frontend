@@ -1,4 +1,4 @@
-import { CvUpdateForm } from "../../components/recommendation/recommendation-update-form";
+import { CvUpdateForm } from "../../components/cv/cv-update-form";
 
 export default function CvUpdate() {
   return (
