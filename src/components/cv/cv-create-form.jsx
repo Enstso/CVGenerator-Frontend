@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 export function CvCreateForm() {
+  const [title,setTitle] = useState("");
   return (
     <>
-      <h1>form à faire</h1>
     </>
   );
 }
