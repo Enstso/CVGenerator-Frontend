@@ -1,7 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/authentication/auth-context";
+import {ProtectedRoute} from "./components/authentication/auth-protected";
 import Register from "./views/Authentication/Register";
 import Login from "./views/Authentication/Login";
+import RecommendationCreate from "./views/Recommendation/Create";
+import RecommendationUpdate from "./views/Recommendation/Update";
 import NotFound from "./views/NotFound";
 function App() {
   return (
@@ -12,6 +15,8 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/recommendation/create" element={<ProtectedRoute><RecommendationCreate></RecommendationCreate></ProtectedRoute>}/>
+              <Route path="/recommendation/update" element={<ProtectedRoute><RecommendationUpdate></RecommendationUpdate></ProtectedRoute>}/>
           </Routes>
         </AuthProvider>
       </BrowserRouter>
