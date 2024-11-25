@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "./../authentication/password-input";
-import { LoaderCircle } from 'lucide-react';
-import { postDataV2, urls } from "../../lib/utils";
+import { LoaderCircle } from "lucide-react";
+import { postDataV2, postData, urls } from "../../lib/utils";
 
 export function AuthRegisterForm({ className = "", ...props }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,9 +26,17 @@ export function AuthRegisterForm({ className = "", ...props }) {
     }
 
     try {
-      await postDataV2(urls.register, { username,firstname,lastname, email, password });
-      console.log("Registered successfully");
-      navigate("/login");
+      const urlApi = import.meta.env.VITE_API_URL;
+      const response = await postData(urlApi + urls.register, {
+        username,
+        firstname,
+        lastname,
+        email,
+        password,
+      });
+      if (response.status == 200) {
+        navigate("/login");
+      }
     } catch (error) {
       console.error("Registration failed:", error);
     } finally {

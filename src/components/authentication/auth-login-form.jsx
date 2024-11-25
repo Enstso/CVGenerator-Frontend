@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "./../authentication/password-input";
 import { LoaderCircle } from 'lucide-react';
@@ -10,25 +10,23 @@ export function AuthLoginForm({ className = "", ...props }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
 
   async function onSubmit(event) {
     event.preventDefault();
     setIsLoading(true);
-
     try {
-        // Appel API
-        const response = await postDataV2(urls.login, { email, password });
-
+        const urlApi = import.meta.env.VITE_API_URL;
+        const response = await postDataV2( urlApi + urls.login, { email, password });
+        console.log(response);
         // Vérification du statut de la réponse
         if (!response || response.status !== 200 ) {
             alert("Invalid credentials");
             return;
         }
-
-        AuthContext.login();
-
+        authContext.login();
         // Navigation vers la page principale
-        navigate("/");
+        navigate("/register");
 
     } catch (error) {
         // Gestion des erreurs
