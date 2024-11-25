@@ -5,6 +5,8 @@ import Register from "./views/Authentication/Register";
 import Login from "./views/Authentication/Login";
 import RecommendationCreate from "./views/Recommendation/Create";
 import RecommendationUpdate from "./views/Recommendation/Update";
+import CvCreate from "./views/Cv/Create";
+import CvUpdate from "./views/Cv/Update";
 import NotFound from "./views/NotFound";
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
               <Route path="/recommendation/create" element={<ProtectedRoute><RecommendationCreate></RecommendationCreate></ProtectedRoute>}/>
               <Route path="/recommendation/update" element={<ProtectedRoute><RecommendationUpdate></RecommendationUpdate></ProtectedRoute>}/>
+              <Route path="/cv/create" element={<ProtectedRoute><CvCreate></CvCreate></ProtectedRoute>}/>
+              <Route path="/cv/update" element={<ProtectedRoute><CvUpdate></CvUpdate></ProtectedRoute>}/>
           </Routes>
         </AuthProvider>
       </BrowserRouter>
