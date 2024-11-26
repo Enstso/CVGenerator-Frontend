@@ -34,7 +34,7 @@ export function AuthRegisterForm({ className = "", ...props }) {
         email,
         password,
       });
-      if (response.status == 200) {
+      if (response.status == 201) {
         navigate("/login");
       }
     } catch (error) {

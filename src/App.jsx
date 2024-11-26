@@ -7,6 +7,8 @@ import RecommendationCreate from "./views/Recommendation/Create";
 import RecommendationUpdate from "./views/Recommendation/Update";
 import CvCreate from "./views/Cv/Create";
 import CvUpdate from "./views/Cv/Update";
+import CVListView from "./views/Cv/List";
+import CVDetailView from "./views/Cv/Detail";
 import NotFound from "./views/NotFound";
 function App() {
   return (
@@ -17,10 +19,12 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/cvs" element={<CVListView/>}/>
+              <Route path="/cvs/:cvId" element={<CVDetailView/>}/>
               <Route path="/recommendation/create" element={<ProtectedRoute><RecommendationCreate></RecommendationCreate></ProtectedRoute>}/>
               <Route path="/recommendation/update" element={<ProtectedRoute><RecommendationUpdate></RecommendationUpdate></ProtectedRoute>}/>
               <Route path="/cv/create" element={<ProtectedRoute><CvCreate></CvCreate></ProtectedRoute>}/>
-              <Route path="/cv/update" element={<ProtectedRoute><CvUpdate></CvUpdate></ProtectedRoute>}/>
+              <Route path="/cv/update/:cvId" element={<ProtectedRoute><CvUpdate></CvUpdate></ProtectedRoute>}/>
           </Routes>
         </AuthProvider>
       </BrowserRouter>

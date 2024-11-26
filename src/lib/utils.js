@@ -2,7 +2,9 @@
 export const urls = {
   register:'auth/register',
   login:'auth/login',
-  logout:'auth/logout'
+  logout:'auth/logout',
+  cvs:'cvs',
+  recommandations:'recommandations'
 };
 
 export async function getData(url) {
