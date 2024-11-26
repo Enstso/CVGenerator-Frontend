@@ -9,26 +9,68 @@ import CvCreate from "./views/Cv/Create";
 import CvUpdate from "./views/Cv/Update";
 import CVListView from "./views/Cv/List";
 import CVDetailView from "./views/Cv/Detail";
+import Nav from "./components/nav/nav";
 import NotFound from "./views/NotFound";
+
 function App() {
   return (
-    <div className="container mx-auto">
-      <BrowserRouter>
-        <AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <div className="container mx-auto">
+          {/* Render Nav only for authenticated routes */}
           <Routes>
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="*" element={<NotFound />} />
-              <Route path="/cvs" element={<CVListView/>}/>
-              <Route path="/cvs/:cvId" element={<CVDetailView/>}/>
-              <Route path="/recommendation/create" element={<ProtectedRoute><RecommendationCreate></RecommendationCreate></ProtectedRoute>}/>
-              <Route path="/recommendation/update" element={<ProtectedRoute><RecommendationUpdate></RecommendationUpdate></ProtectedRoute>}/>
-              <Route path="/cv/create" element={<ProtectedRoute><CvCreate></CvCreate></ProtectedRoute>}/>
-              <Route path="/cv/update/:cvId" element={<ProtectedRoute><CvUpdate></CvUpdate></ProtectedRoute>}/>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="*"
+              element={
+                <>
+                  <Nav />
+                  <Routes>
+                    <Route path="/" element={<CVListView />} />
+                    <Route path="/cvs" element={<CVListView />} />
+                    <Route path="/cvs/:cvId" element={<CVDetailView />} />
+                    <Route
+                      path="/recommendation/create"
+                      element={
+                        <ProtectedRoute>
+                          <RecommendationCreate />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/recommendation/update/:id"
+                      element={
+                        <ProtectedRoute>
+                          <RecommendationUpdate />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/cv/create"
+                      element={
+                        <ProtectedRoute>
+                          <CvCreate />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/cv/update/:cvId"
+                      element={
+                        <ProtectedRoute>
+                          <CvUpdate />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </>
+              }
+            />
           </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </div>
+        </div>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

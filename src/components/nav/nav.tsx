@@ -1,35 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
+import React,{useContext} from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../authentication/auth-context";
 export default function Nav() {
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
   const handleLogout = () => {
-    // Logique de déconnexion, par exemple supprimer un token ou rediriger
-    console.log("Logging out...");
-    
-};
+    try {
+      // Log out logic: e.g., remove token, clear user data
+      console.log("Logging out...");
+      authContext.logout();
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   return (
     <nav className="bg-gray-800 p-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* Logo ou nom de l'application */}
-        <div className="text-white text-2xl font-semibold">
-          <Link to="/">MyApp</Link>
-        </div>
-
-        {/* Liens de navigation */}
+        {/* Navigation Links */}
         <div className="space-x-6">
-          {/* Lien vers la page des CVs */}
           <Link
             to="/cvs"
             className="text-white hover:text-blue-400 transition-colors"
           >
             CVs
           </Link>
+          <Link
+            to="/me"
+            className="text-white hover:text-blue-400 transition-colors"
+          >
+            Me
+          </Link>
 
-          {/* Bouton de déconnexion */}
+          {/* Logout Button */}
           <button
             onClick={handleLogout}
             className="text-white hover:text-red-400 transition-colors"
+            aria-label="Logout"
           >
             Logout
           </button>

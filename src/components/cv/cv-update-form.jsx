@@ -25,7 +25,7 @@ export function CvUpdateForm() {
         const response = res.cv;
         if (response) {
           setTitle(response.title || "");
-          setSummary(response.summmary || "");
+          setSummary(response.summary || "");
           setSkills(response.skills ? response.skills.join(";") : "");
           setExperiences(JSON.stringify(response.experiences || [], null, 2));
           setEducation(JSON.stringify(response.education || [], null, 2));

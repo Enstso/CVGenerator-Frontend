@@ -27,7 +27,7 @@ export function AuthRegisterForm({ className = "", ...props }) {
 
     try {
       const urlApi = import.meta.env.VITE_API_URL;
-      const response = await postData(urlApi + urls.register, {
+      const response = await postDataV2(urlApi + urls.register, {
         username,
         firstname,
         lastname,

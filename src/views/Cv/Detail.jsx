@@ -30,7 +30,6 @@ export default function CVDetailView() {
         setLoading(false);
       }
     }
-
     fetchCvDetails();
   }, [cvId]);
 
@@ -57,7 +56,7 @@ export default function CVDetailView() {
 
       {/* Summary */}
       <p className="mb-4 text-gray-700">
-        <strong>Summary:</strong> {cv.summmary || "No summary provided."}
+        <strong>Summary:</strong> {cv.summary || "No summary provided."}
       </p>
 
       {/* Skills */}

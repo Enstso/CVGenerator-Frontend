@@ -26,7 +26,7 @@ export function AuthLoginForm({ className = "", ...props }) {
         }
         authContext.login();
         // Navigation vers la page principale
-        navigate("/register");
+        navigate("/cvs");
 
     } catch (error) {
         // Gestion des erreurs
