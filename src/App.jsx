@@ -8,7 +8,9 @@ import RecommendationUpdate from "./views/Recommendation/Update";
 import CvCreate from "./views/Cv/Create";
 import CvUpdate from "./views/Cv/Update";
 import CVListView from "./views/Cv/List";
+import CVListAuthView from "./views/Cv/ListAuth";
 import CVDetailView from "./views/Cv/Detail";
+import Profile from "./views/Profile/profile";
 import Nav from "./components/nav/nav";
 import NotFound from "./views/NotFound";
 
@@ -38,6 +40,7 @@ function App() {
                         </ProtectedRoute>
                       }
                     />
+                    <Route path="/profile" element={<ProtectedRoute><Profile></Profile></ProtectedRoute>}/>
                     <Route
                       path="/recommendation/update/:id"
                       element={
@@ -46,6 +49,8 @@ function App() {
                         </ProtectedRoute>
                       }
                     />
+                    <Route path="/myCVs" element={<ProtectedRoute><CVListAuthView></CVListAuthView></ProtectedRoute>}/>
+                    
                     <Route
                       path="/cv/create"
                       element={

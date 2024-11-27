@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "./../authentication/password-input";
 import { LoaderCircle } from "lucide-react";
-import { postDataV2, postData, urls } from "../../lib/utils";
+import { postDataV2, urlApi, urls } from "../../lib/utils";
 
 export function AuthRegisterForm({ className = "", ...props }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +26,6 @@ export function AuthRegisterForm({ className = "", ...props }) {
     }
 
     try {
-      const urlApi = import.meta.env.VITE_API_URL;
       const response = await postDataV2(urlApi + urls.register, {
         username,
         firstname,
@@ -34,7 +33,7 @@ export function AuthRegisterForm({ className = "", ...props }) {
         email,
         password,
       });
-      if (response.status == 201) {
+      if (response.status === 201) {
         navigate("/login");
       }
     } catch (error) {
@@ -45,90 +44,92 @@ export function AuthRegisterForm({ className = "", ...props }) {
   }
 
   return (
-    <div className={`grid gap-6 ${className}`} {...props}>
-      <form onSubmit={onSubmit}>
-        <div className="grid gap-4">
-          <div className="grid gap-1">
-            <input
-              id="username"
-              placeholder="Username"
-              type="text"
-              autoCapitalize="none"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full rounded-md border border-gray-300 p-2 text-sm placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
-          </div>
-          <div className="grid gap-1">
-            <input
-              id="firstname"
-              placeholder="Firstname"
-              type="text"
-              autoCapitalize="none"
-              value={firstname}
-              onChange={(e) => setFirstname(e.target.value)}
-              className="w-full rounded-md border border-gray-300 p-2 text-sm placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
-          </div>
-          <div className="grid gap-1">
-            <input
-              id="lastname"
-              placeholder="Lastname"
-              type="text"
-              autoCapitalize="none"
-              value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
-              className="w-full rounded-md border border-gray-300 p-2 text-sm placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
-          </div>
-          <div className="grid gap-1">
-            <input
-              id="email"
-              placeholder="name@example.com"
-              type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={isLoading}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-md border border-gray-300 p-2 text-sm placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
-          </div>
-          <div className="grid gap-1">
-            <PasswordInput
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-md border border-gray-300 p-2 text-sm placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
-          </div>
-          <div className="grid gap-1">
-            <PasswordInput
-              id="password-confirmation"
-              placeholder="Confirm Password"
-              value={passwordConfirmation}
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
-              className="w-full rounded-md border border-gray-300 p-2 text-sm placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
-          </div>
+    <form onSubmit={onSubmit} className={`space-y-6 ${className}`} {...props}>
+      {/* Username */}
+      <div>
+        <input
+          id="username"
+          placeholder="Username"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full p-3 rounded-md border border-gray-300 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className={`w-full rounded-md bg-blue-600 px-4 py-2 text-white text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 ${
-              isLoading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-          >
-            {isLoading ? (
-              <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              "Create with Email"
-            )}
-          </button>
-        </div>
-      </form>
-    </div>
+      {/* Firstname */}
+      <div>
+        <input
+          id="firstname"
+          placeholder="Firstname"
+          type="text"
+          value={firstname}
+          onChange={(e) => setFirstname(e.target.value)}
+          className="w-full p-3 rounded-md border border-gray-300 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
+
+      {/* Lastname */}
+      <div>
+        <input
+          id="lastname"
+          placeholder="Lastname"
+          type="text"
+          value={lastname}
+          onChange={(e) => setLastname(e.target.value)}
+          className="w-full p-3 rounded-md border border-gray-300 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
+
+      {/* Email */}
+      <div>
+        <input
+          id="email"
+          placeholder="name@example.com"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={isLoading}
+          className="w-full p-3 rounded-md border border-gray-300 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
+
+      {/* Password */}
+      <div>
+        <PasswordInput
+          id="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full p-3 rounded-md border border-gray-300 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
+
+      {/* Confirm Password */}
+      <div>
+        <PasswordInput
+          id="password-confirmation"
+          placeholder="Confirm Password"
+          value={passwordConfirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+          className="w-full p-3 rounded-md border border-gray-300 text-sm placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
+
+      {/* Submit Button */}
+      <button
+        type="submit"
+        disabled={isLoading}
+        className={`w-full p-3 rounded-md bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 ${
+          isLoading ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+      >
+        {isLoading ? (
+          <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+        ) : (
+          "Create Account"
+        )}
+      </button>
+    </form>
   );
 }

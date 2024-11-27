@@ -34,35 +34,43 @@ export default function CVDetailView() {
   }, [cvId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-full">
+        <div className="animate-spin h-16 w-16 border-t-4 border-blue-500 border-solid rounded-full"></div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <div className="text-red-500 text-center">{error}</div>;
   }
 
   if (!cv) {
-    return <div className="text-gray-500">CV not found.</div>;
+    return <div className="text-gray-500 text-center">CV not found.</div>;
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white shadow-md rounded-md">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">{cv.title}</h1>
+    <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-md border border-gray-200">
+      <h1 className="text-2xl font-semibold mb-4 text-gray-900">{cv.title}</h1>
 
       {/* User email */}
-      <p className="mb-4 text-gray-700">
-        <strong>Email: </strong> {cv.user?.email || "Not specified"}
-      </p>
+      <div className="mb-6">
+        <p className="text-sm text-gray-700">
+          <strong className="font-medium text-gray-800">Email:</strong> {cv.user?.email || "Not specified"}
+        </p>
+      </div>
 
       {/* Summary */}
-      <p className="mb-4 text-gray-700">
-        <strong>Summary:</strong> {cv.summary || "No summary provided."}
-      </p>
+      <div className="mb-6">
+        <p className="text-sm text-gray-700">
+          <strong className="font-medium text-gray-800">Summary:</strong> {cv.summary || "No summary provided."}
+        </p>
+      </div>
 
       {/* Skills */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-800">Skills</h2>
-        <ul className="list-disc ml-5">
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Skills</h2>
+        <ul className="list-disc ml-6 text-sm text-gray-700">
           {cv.skills && cv.skills.length > 0 ? (
             cv.skills.map((skill, index) => <li key={index}>{skill}</li>)
           ) : (
@@ -72,18 +80,18 @@ export default function CVDetailView() {
       </div>
 
       {/* Experiences */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-800">Work Experience</h2>
-        <ul className="list-disc ml-5">
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Work Experience</h2>
+        <ul className="list-none ml-6 text-sm text-gray-700">
           {cv.experiences && cv.experiences.length > 0 ? (
             cv.experiences.map((exp, index) => (
-              <li key={index}>
-                <strong>{exp.position}</strong> at <strong>{exp.company}</strong>
-                <br />
-                <span className="text-sm text-gray-600">
+              <li key={index} className="mb-4">
+                <div className="font-semibold text-gray-800">{exp.position}</div>
+                <div className="text-gray-600">{exp.company}</div>
+                <span className="text-xs text-gray-500">
                   {formatDate(exp.startDate)} - {formatDate(exp.endDate)}
                 </span>
-                <p className="mt-2 text-gray-700">{exp.description}</p>
+                <p className="mt-2 text-gray-600">{exp.description}</p>
               </li>
             ))
           ) : (
@@ -93,15 +101,15 @@ export default function CVDetailView() {
       </div>
 
       {/* Education */}
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-800">Education</h2>
-        <ul className="list-disc ml-5">
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Education</h2>
+        <ul className="list-none ml-6 text-sm text-gray-700">
           {cv.education && cv.education.length > 0 ? (
             cv.education.map((edu, index) => (
-              <li key={index}>
-                <strong>{edu.degree}</strong> at <strong>{edu.school}</strong>
-                <br />
-                <span className="text-sm text-gray-600">
+              <li key={index} className="mb-4">
+                <div className="font-semibold text-gray-800">{edu.degree}</div>
+                <div className="text-gray-600">{edu.school}</div>
+                <span className="text-xs text-gray-500">
                   {formatDate(edu.startDate)} - {formatDate(edu.endDate)}
                 </span>
               </li>
@@ -113,12 +121,12 @@ export default function CVDetailView() {
       </div>
 
       {/* Creation and update dates */}
-      <div className="mt-6 text-sm text-gray-600">
+      <div className="mt-6 text-xs text-gray-500">
         <p>
-          <strong>Created on:</strong> {formatDate(cv.createdAt)}
+          <strong className="font-medium text-gray-800">Created on:</strong> {formatDate(cv.createdAt)}
         </p>
         <p>
-          <strong>Last updated:</strong> {formatDate(cv.updatedAt)}
+          <strong className="font-medium text-gray-800">Last updated:</strong> {formatDate(cv.updatedAt)}
         </p>
       </div>
     </div>

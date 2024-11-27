@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"; 
-import { getData, postDataV2, urls } from "../../lib/utils";
+import { getData, postDataV2, urlApi, urls } from "../../lib/utils";
 import FormInput from "../forms/formInput";
 import FormTextArea from "../forms/formTextArea";
 import FormSelect from "../forms/formSelect";
@@ -20,7 +20,6 @@ export function CvUpdateForm() {
   useEffect(() => {
     async function fetchCv() {
       try {
-        const urlApi = import.meta.env.VITE_API_URL;
         const res = await getData(`${urlApi + urls.cvs}/${cvId}`);
         const response = res.cv;
         if (response) {

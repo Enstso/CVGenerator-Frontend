@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { postDataV2, urls } from "../../lib/utils";
+import { postDataV2, urlApi, urls } from "../../lib/utils";
 import FormInput from "../forms/formInput";
 import FormTextArea from "../forms/formTextArea";
 import FormSelect from "../forms/formSelect";
@@ -41,7 +41,6 @@ export function CvCreateForm() {
       visibility,
     };
 
-    const urlApi = import.meta.env.VITE_API_URL;
     const response = await postDataV2(urlApi + urls.cvs, payload);
     console.log(response);
   };
