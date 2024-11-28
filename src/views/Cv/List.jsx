@@ -62,12 +62,6 @@ export default function CVListView() {
                                     <p className="text-gray-600 mt-2">{cv.summary}</p>
                                 </div>
                             </div>
-                            <Link
-                                to={`/cvs/${cv._id}`}
-                                className="text-blue-500 hover:underline text-sm mt-4 inline-block"
-                            >
-                                View Details →
-                            </Link>
                         </li>
                     ))}
                 </ul>

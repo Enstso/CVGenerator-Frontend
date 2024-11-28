@@ -5,8 +5,8 @@ export const urls = {
   logout:'auth/logout',
   user:'users',
   cvs:'cvs',
-  recommandations:'recommandations',
-  myCvs:'cvs/myCvs'
+  recommandations:'recommendations',
+  myCvs:'cvs/user/myCvs'
 };
 
 export const urlApi = import.meta.env.VITE_API_URL;

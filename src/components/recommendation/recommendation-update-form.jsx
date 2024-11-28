@@ -3,15 +3,15 @@ import { getData, postDataV2, urls } from "../../lib/utils";
 import FormTextArea from "../forms/formTextArea";
 import FormInput from "../forms/formInput";
 import FormSelect from "../forms/formSelect";
+import { useParams } from "react-router-dom";
 
-export function RecommendationUpdateForm({ recommendationId }) {
+export function RecommendationUpdateForm() {
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(1);
-  const [selectedCv, setSelectedCv] = useState(null);
   const [cvs, setCvs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const {recommendationId} = useParams();
   // Fetch recommendation and CV data
   useEffect(() => {
     async function fetchData() {
@@ -25,14 +25,10 @@ export function RecommendationUpdateForm({ recommendationId }) {
         if (recommendationResponse) {
           setContent(recommendationResponse.content || "");
           setRating(recommendationResponse.rating || 1);
-          setSelectedCv(recommendationResponse.cvId || null);
         }
 
         // Fetch the CVs
-        const cvResponse = await getData(`${urlApi + urls.cvs}`);
-        if (cvResponse) {
-          setCvs(cvResponse.cvs || []);
-        }
+      
 
         setLoading(false);
       } catch (error) {
@@ -86,15 +82,7 @@ export function RecommendationUpdateForm({ recommendationId }) {
       {error && <div className="text-red-500 mb-4">{error}</div>}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* CV Selection */}
-        <FormSelect
-          label="Select CV"
-          name="cv"
-          value={selectedCv}
-          onChange={(e) => setSelectedCv(e.target.value)}
-          options={cvs.map((cv) => ({ value: cv._id, label: cv.title }))}
-        />
-
+    
         {/* Recommendation Content */}
         <FormTextArea
           label="Recommendation Content"
