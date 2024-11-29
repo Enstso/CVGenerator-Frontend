@@ -1,22 +1,23 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../authentication/auth-context";
-import { LogOut, User, FileText, Menu } from "lucide-react"; // Import des icônes
+import { Menu } from "lucide-react"; // Only import necessary icons
 import NavLinks from "./nav-links";
 
 export default function Nav() {
   const navigate = useNavigate();
-  const authContext = useContext(AuthContext);
-  const [menuOpen, setMenuOpen] = useState(false); // État pour le menu mobile
+  const { logout } = useContext(AuthContext); // Destructure for clarity
+  const [menuOpen, setMenuOpen] = useState(false); // State for mobile menu
 
+  // Function to handle logout with proper error handling
   const handleLogout = () => {
     try {
-      console.log("Déconnexion en cours...");
-      authContext.logout();
+      console.log("Logging out...");
+      logout(); // Use destructured logout method
       navigate("/login");
     } catch (error) {
-      console.error("La déconnexion a échoué :", error);
-      // Afficher un message d'erreur utilisateur ici (par exemple, un toast)
+      console.error("Logout failed:", error);
+      // Optionally add user feedback (e.g., toast notification)
     }
   };
 
@@ -26,24 +27,24 @@ export default function Nav() {
         {/* Brand/Logo */}
         <div className="text-white text-xl font-semibold">CV Generator</div>
 
-        {/* Liens de navigation (Desktop) */}
+        {/* Navigation Links (Desktop) */}
         <div className="hidden md:flex space-x-6 items-center">
-          <NavLinks handleLogout={handleLogout} /> {/* Passage de handleLogout ici */}
+          <NavLinks handleLogout={handleLogout} />
         </div>
 
-        {/* Bouton de menu mobile */}
+        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => setMenuOpen((prev) => !prev)} // Simplify state toggle
             className="text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-            aria-label="Ouvrir le menu"
+            aria-label="Open menu"
           >
             <Menu className="w-6 h-6" />
           </button>
         </div>
       </div>
 
-      {/* Menu mobile */}
+      {/* Mobile Menu */}
       {menuOpen && (
         <div className="bg-gray-800 p-4 space-y-4 md:hidden">
           <NavLinks onClick={() => setMenuOpen(false)} handleLogout={handleLogout} />

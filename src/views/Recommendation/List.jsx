@@ -11,7 +11,7 @@ export default function RecommendationListView() {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const response = await getData(urlApi + urls.recommandations + "/cv/" + cvId);
+        const response = await getData(urlApi + urls.recommendations + "/cv/" + cvId);
         setRecommendations(response.recommendations);
       } catch (err) {
         setError(err.message);

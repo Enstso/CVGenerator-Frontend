@@ -5,7 +5,6 @@ import Register from "./views/Authentication/Register";
 import Login from "./views/Authentication/Login";
 import RecommendationListMyAuthView from "./views/Recommendation/ListMyAuth";
 import RecommendationCreate from "./views/Recommendation/Create";
-import RecommendationUpdate from "./views/Recommendation/Update";
 import CvCreate from "./views/Cv/Create";
 import CvUpdate from "./views/Cv/Update";
 import CVListView from "./views/Cv/List";
@@ -34,7 +33,6 @@ function App() {
                 <>
                   <Nav />
                   <Routes>
-                    <Route path="/cvs" element={<CVListAuthView />} />
                     <Route path="/cvs/:cvId" element={<CVDetailView />} />
                     <Route
                       path="/recommendation/create/:cvId"
@@ -45,14 +43,7 @@ function App() {
                       }
                     />
                     <Route path="/profile" element={<ProtectedRoute><Profile></Profile></ProtectedRoute>}/>
-                    <Route
-                      path="/recommendation/update/:recommendationId"
-                      element={
-                        <ProtectedRoute>
-                          <RecommendationUpdate />
-                        </ProtectedRoute>
-                      }
-                    />
+                    <Route path="/cvs" element={<ProtectedRoute><CVListAuthView /></ProtectedRoute>} />
                     <Route path="/myCVs" element={<ProtectedRoute><CVListMyAuthView></CVListMyAuthView></ProtectedRoute>}/>
                     <Route path="/recommendations/:cvId" element={<ProtectedRoute><RecommendationListView></RecommendationListView></ProtectedRoute>}/>
                     <Route path="/myRecommendations" element={<ProtectedRoute><RecommendationListMyAuthView></RecommendationListMyAuthView></ProtectedRoute>}/>

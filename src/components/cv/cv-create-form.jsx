@@ -3,8 +3,11 @@ import { postDataV2, urlApi, urls } from "../../lib/utils";
 import FormInput from "../forms/formInput";
 import FormTextArea from "../forms/formTextArea";
 import FormSelect from "../forms/formSelect";
+import { useNavigate } from "react-router-dom";
 
 export function CvCreateForm() {
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     title: "",
     summary: "",
@@ -30,19 +33,22 @@ export function CvCreateForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { title, summary, skills, experiences, educations, visibility } = formData;
 
     const payload = {
-      title,
-      summary,
-      skills: skills ? skills.split(";").map((s) => s.trim()) : [],
-      experiences: parseJsonInput(experiences),
-      education: parseJsonInput(educations),
-      visibility,
+      title: formData.title,
+      summary: formData.summary,
+      skills: formData.skills ? formData.skills.split(";").map((s) => s.trim()) : [],
+      experiences: parseJsonInput(formData.experiences),
+      education: parseJsonInput(formData.educations),
+      visibility: formData.visibility,
     };
-    console.log(payload);
-    const response = await postDataV2(urlApi + urls.cvs, payload);
-    console.log(response);
+
+    try {
+      await postDataV2(`${urlApi}${urls.cvs}`, payload);
+      navigate("/Mycvs");
+    } catch (error) {
+      console.error("Error submitting CV:", error);
+    }
   };
 
   return (
@@ -76,7 +82,7 @@ export function CvCreateForm() {
           name="experiences"
           value={formData.experiences}
           rows={5}
-          placeholder='[{"_id":"1", "company":"TechCorp", "position":"Developer"}]'
+          placeholder='[{"company": "TechCorp", "position": "Software Engineer", "startDate": "2020-01-01", "endDate": "2022-12-31", "description": "Developed and maintained web applications using JavaScript and Python."}]'
           onChange={handleChange}
         />
         <FormTextArea
@@ -84,7 +90,7 @@ export function CvCreateForm() {
           name="educations"
           value={formData.educations}
           rows={5}
-          placeholder='[{"school":"University", "degree":"Master"}]'
+          placeholder='[{"school": "University of Technology", "degree": "Bachelor of Computer Science", "startDate": "2015-09-01", "endDate": "2019-06-30"}]'
           onChange={handleChange}
         />
         <FormSelect

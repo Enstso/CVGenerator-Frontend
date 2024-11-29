@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"; 
-import { getData, postDataV2, urlApi, urls } from "../../lib/utils";
+import { getData, putData, urlApi, urls } from "../../lib/utils";
 import FormInput from "../forms/formInput";
 import FormTextArea from "../forms/formTextArea";
 import FormSelect from "../forms/formSelect";
-import { useParams } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 
 export function CvUpdateForm() {
   const [title, setTitle] = useState("");
@@ -15,6 +15,7 @@ export function CvUpdateForm() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { cvId } = useParams(); // Extract ID from the URL
+  const navigate = useNavigate();
 
   // Load existing CV data
   useEffect(() => {
@@ -51,20 +52,19 @@ export function CvUpdateForm() {
 
     setLoading(true);
 
-    const urlApi = import.meta.env.VITE_API_URL;
     const updatedData = {
       title,
       summary,
       skills: skills.split(";").map((skill) => skill.trim()),
       experiences: JSON.parse(experiences),
-      educations: JSON.parse(educations),
+      education: JSON.parse(educations),
       visibility,
     };
 
     try {
-      const response = await postDataV2(`${urlApi + urls.cvs}/${cvId}`, updatedData, "PUT");
+      const response = await putData(`${urlApi + urls.cvs}/${cvId}`, updatedData, "PUT");
       console.log("CV updated successfully:", response);
-      setLoading(false);
+      navigate('/Mycvs');
     } catch (error) {
       console.error("Error updating CV:", error);
       setError("Error updating CV. Please try again.");
@@ -117,7 +117,7 @@ export function CvUpdateForm() {
           name="experiences"
           value={experiences}
           onChange={(e) => setExperiences(e.target.value)}
-          placeholder='[{"_id":"1", "company":"TechCorp", "position":"Developer"}]'
+          placeholder='[{"company": "TechCorp", "position": "Software Engineer", "startDate": "2020-01-01", "endDate": "2022-12-31", "description": "Developed and maintained web applications using JavaScript and Python."}]'
           rows={5}
         />
 
@@ -127,7 +127,7 @@ export function CvUpdateForm() {
           name="educations"
           value={educations}
           onChange={(e) => setEducation(e.target.value)}
-          placeholder='[{"school":"University", "degree":"Master"}]'
+          placeholder='[{"school": "University of Technology", "degree": "Bachelor of Computer Science", "startDate": "2015-09-01", "endDate": "2019-06-30"}]'
           rows={5}
         />
 

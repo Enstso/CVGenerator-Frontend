@@ -5,7 +5,7 @@ export const urls = {
   logout:'auth/logout',
   user:'users',
   cvs:'cvs',
-  recommandations:'recommendations',
+  recommendations:'recommendations',
   myCvs:'cvs/user/myCvs'
 };
 
@@ -74,17 +74,14 @@ export async function getData(url) {
     })
   }
 
-  export async function deleteData(url, data, options=undefined) {
+  export async function deleteData(url) {
     return fetch(url, {
-      ...options,
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "include",
-  
-      body: JSON.stringify(data),
-    }).then((res) => res.json())
+      }).then((res) => res.json())
   }
   
   

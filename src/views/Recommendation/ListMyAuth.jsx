@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { getData, postData, urlApi, urls } from "../../lib/utils";
+import { useNavigate } from "react-router-dom";
+import { deleteData, getData,  urlApi, urls } from "../../lib/utils";
 import { Link } from "react-router-dom";
 
 export default function RecommendationListMyAuthView() {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
   const fetchRecommendations = async () => {
     try {
-      const response = await getData(urlApi + urls.recommandations);
+      const response = await getData(urlApi + urls.recommendations);
       setRecommendations(response.recommendations);
     } catch (err) {
       setError(err.message);
@@ -24,10 +25,10 @@ export default function RecommendationListMyAuthView() {
 
 
 
-  const handleDelete = (id) => {
-    console.log(`Deleting recommendation with id: ${id}`);
-    // Logic to delete the recommendation
-  };
+  const handleDelete = async (id) => {
+    const response = await deleteData(urlApi+urls.recommendations+'/'+id);
+    navigate("/Mycvs")
+};
 
   if (loading) {
     return (
@@ -70,12 +71,7 @@ export default function RecommendationListMyAuthView() {
                 <p className="text-gray-600 mb-2">{rec.text}</p>
                 <p className="text-gray-800 font-medium">{rec.content}</p>
                 <div className="flex space-x-2 mt-4">
-                  <Link
-                    to={"/recommendation/update/"+rec._id}
-                    className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition"
-                  >
-                    Update
-                  </Link>
+                 
                   <button
                     onClick={() => handleDelete(rec._id)}
                     className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"

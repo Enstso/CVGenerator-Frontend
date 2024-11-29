@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { PasswordInput } from "./../authentication/password-input";
 import { LoaderCircle } from "lucide-react";
 import { postDataV2, urlApi, urls } from "../../lib/utils";
-
+import FormInput from "../forms/formInput";
+import FormTextArea from "../forms/formTextArea";
+import FormSelect from "../forms/formSelect";
 export function AuthRegisterForm({ className = "", ...props }) {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -47,8 +49,7 @@ export function AuthRegisterForm({ className = "", ...props }) {
     <form onSubmit={onSubmit} className={`space-y-6 ${className}`} {...props}>
       {/* Username */}
       <div>
-        <input
-          id="username"
+        <FormInput
           placeholder="Username"
           type="text"
           value={username}
@@ -59,8 +60,7 @@ export function AuthRegisterForm({ className = "", ...props }) {
 
       {/* Firstname */}
       <div>
-        <input
-          id="firstname"
+        <FormInput
           placeholder="Firstname"
           type="text"
           value={firstname}
@@ -71,8 +71,7 @@ export function AuthRegisterForm({ className = "", ...props }) {
 
       {/* Lastname */}
       <div>
-        <input
-          id="lastname"
+        <FormInput
           placeholder="Lastname"
           type="text"
           value={lastname}

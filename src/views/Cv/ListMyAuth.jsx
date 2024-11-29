@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { getData, urls } from "../../lib/utils";
-import { Link } from "react-router-dom";
+import { getData,deleteData, urls,urlApi } from "../../lib/utils";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CVListMyAuthView() {
     const [cvs, setCvs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const navigate = useNavigate();
     useEffect(() => {
         async function fetchCvs() {
             try {
-                const urlApi = import.meta.env.VITE_API_URL;
                 const response = await getData(`${urlApi + urls.myCvs}`);
                 if (response && response.cvs) {
                     setCvs(response.cvs);
@@ -22,21 +21,18 @@ export default function CVListMyAuthView() {
                 setLoading(false);
             }
         }
-
         fetchCvs();
     }, []);
 
     // Function to handle CV deletion
     const handleDelete = async (cvId) => {
-        const urlApi = import.meta.env.VITE_API_URL;
-
         if (window.confirm("Are you sure you want to delete this CV?")) {
             try {
-                const response = await fetch(`${urlApi + urls.cvs}/${cvId}`, {
-                    method: "DELETE",
-                });
-                if (response.ok) {
+                const response = await deleteData(urlApi+urls.cvs+'/'+cvId)
+ 
+                if (response.success) {
                     setCvs(cvs.filter((cv) => cv._id !== cvId)); // Update the list after deletion
+                    navigate("/Mycvs")
                 } else {
                     throw new Error("Failed to delete CV.");
                 }

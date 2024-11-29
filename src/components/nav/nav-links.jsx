@@ -32,7 +32,7 @@ export default function NavLinks({ onClick, handleLogout }) {
                 to="/myRecommendations"
                 className="flex items-center text-white hover:text-blue-400 transition-colors"
                 onClick={onClick}
-                aria-label="Mes recommandations"
+                aria-label="recommendations"
             >
                 <FileText className="mr-2 w-5 h-5" /> My Recommendations
             </Link>

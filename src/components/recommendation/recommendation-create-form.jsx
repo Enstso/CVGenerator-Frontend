@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getData, postDataV2, urls } from "../../lib/utils";  // Assuming getData and postDataV2 are available in utils
+import { getData, postDataV2, urls,urlApi } from "../../lib/utils";  // Assuming getData and postDataV2 are available in utils
 import FormTextArea from "../forms/formTextArea";
 import FormInput from "../forms/formInput";
 import FormSelect from "../forms/formSelect";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function RecommendationCreateForm() {
   const [cvs, setCvs] = useState([]);
@@ -12,11 +12,11 @@ export function RecommendationCreateForm() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const {cvId} = useParams(); 
+  const navigate = useNavigate();
   // Load existing CV data
   useEffect(() => {
     async function fetchCv() {
       try {
-        const urlApi = import.meta.env.VITE_API_URL;
         const response = await getData(`${urlApi + urls.cvs}`);
         if (response) {
           setCvs(response.cvs || []);
@@ -35,7 +35,6 @@ export function RecommendationCreateForm() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("vbbbb");
     if (!content) {
       alert("Please select a CV and provide feedback.");
       return;
@@ -50,11 +49,7 @@ export function RecommendationCreateForm() {
     try {
       const urlApi = import.meta.env.VITE_API_URL;
       const response = await postDataV2(urlApi + urls.recommendations, recommendationData);
-      console.log("Recommendation submitted:", response);
-      // Optionally, reset form fields after successful submission
-      setContent("");
-      setRating(1);
- 
+      navigate('/Mycvs');
     } catch (error) {
       console.error("Error submitting recommendation:", error);
       setError("Error submitting recommendation. Please try again.");

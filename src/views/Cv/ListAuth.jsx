@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getData, urls } from "../../lib/utils";
+import { getData, urls, urlApi } from "../../lib/utils";
 import { Link } from "react-router-dom";
 
 export default function CVListAuthView() {
@@ -10,7 +10,6 @@ export default function CVListAuthView() {
     useEffect(() => {
         async function fetchCvs() {
             try {
-                const urlApi = import.meta.env.VITE_API_URL;
                 const response = await getData(`${urlApi +  urls.cvs}`);
                 if (response && response.cvs) {
                     setCvs(response.cvs);
