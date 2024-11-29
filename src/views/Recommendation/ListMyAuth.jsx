@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteData, getData,  urlApi, urls } from "../../lib/utils";
-import { Link } from "react-router-dom";
 
 export default function RecommendationListMyAuthView() {
   const [recommendations, setRecommendations] = useState([]);

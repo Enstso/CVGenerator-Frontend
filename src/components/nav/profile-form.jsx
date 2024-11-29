@@ -82,6 +82,7 @@ export default function ProfileForm() {
     if (confirmDelete) {
       try {
         await deleteData(urlApi + urls.user);
+        authContext.logout();
         navigate("/");
       } catch (err) {
         setError("Failed to delete account.");

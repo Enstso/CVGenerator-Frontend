@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getData, urls } from "../../lib/utils";
+import { getData, urls,urlApi } from "../../lib/utils";
 
 export const AuthContext = createContext({
   isLoggedIn: false,
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logoutHandler = async () => {
-    const url = import.meta.env.VITE_API_URL + urls.logout;
+    const url = urlApi + urls.logout;
     await getData(url);
     setIsLoggedIn(false);
   };

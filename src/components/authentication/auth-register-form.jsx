@@ -4,8 +4,7 @@ import { PasswordInput } from "./../authentication/password-input";
 import { LoaderCircle } from "lucide-react";
 import { postDataV2, urlApi, urls } from "../../lib/utils";
 import FormInput from "../forms/formInput";
-import FormTextArea from "../forms/formTextArea";
-import FormSelect from "../forms/formSelect";
+
 export function AuthRegisterForm({ className = "", ...props }) {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");

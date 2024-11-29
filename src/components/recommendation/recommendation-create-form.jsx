@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getData, postDataV2, urls,urlApi } from "../../lib/utils";  // Assuming getData and postDataV2 are available in utils
 import FormTextArea from "../forms/formTextArea";
-import FormInput from "../forms/formInput";
 import FormSelect from "../forms/formSelect";
 import { useNavigate, useParams } from "react-router-dom";
 
