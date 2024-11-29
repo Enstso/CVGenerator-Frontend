@@ -37,10 +37,10 @@ export function CvCreateForm() {
       summary,
       skills: skills ? skills.split(";").map((s) => s.trim()) : [],
       experiences: parseJsonInput(experiences),
-      educations: parseJsonInput(educations),
+      education: parseJsonInput(educations),
       visibility,
     };
-
+    console.log(payload);
     const response = await postDataV2(urlApi + urls.cvs, payload);
     console.log(response);
   };

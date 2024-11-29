@@ -26,13 +26,14 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/" element={<CVListView />} />
+
             <Route
               path="*"
               element={
                 <>
                   <Nav />
                   <Routes>
-                    <Route path="/" element={<CVListView />} />
                     <Route path="/cvs" element={<CVListAuthView />} />
                     <Route path="/cvs/:cvId" element={<CVDetailView />} />
                     <Route

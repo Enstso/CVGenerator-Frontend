@@ -35,8 +35,8 @@ export function RecommendationCreateForm() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!content || !selectedCv) {
+    console.log("vbbbb");
+    if (!content) {
       alert("Please select a CV and provide feedback.");
       return;
     }

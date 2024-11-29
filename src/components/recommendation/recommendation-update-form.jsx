@@ -44,7 +44,7 @@ export function RecommendationUpdateForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!content || !selectedCv) {
+    if (!content ) {
       alert("Please provide all required fields.");
       return;
     }
@@ -52,7 +52,6 @@ export function RecommendationUpdateForm() {
     const updatedRecommendation = {
       content,
       rating,
-      cvId: selectedCv,
     };
 
     try {

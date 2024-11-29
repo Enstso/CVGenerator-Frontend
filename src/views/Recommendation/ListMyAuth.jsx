@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getData, urlApi, urls } from "../../lib/utils";
+import { getData, postData, urlApi, urls } from "../../lib/utils";
+import { Link } from "react-router-dom";
 
 export default function RecommendationListMyAuthView() {
   const [recommendations, setRecommendations] = useState([]);
@@ -21,15 +22,7 @@ export default function RecommendationListMyAuthView() {
     fetchRecommendations();
   }, []);
 
-  const handleCreate = () => {
-    console.log("Creating a new recommendation...");
-    // Logic to navigate to a creation form or open a modal
-  };
 
-  const handleUpdate = (id) => {
-    console.log(`Updating recommendation with id: ${id}`);
-    // Logic to navigate to an edit form or open a modal
-  };
 
   const handleDelete = (id) => {
     console.log(`Deleting recommendation with id: ${id}`);
@@ -58,12 +51,7 @@ export default function RecommendationListMyAuthView() {
         <h1 className="text-2xl font-semibold text-gray-800 mb-4">
           My Recommendations
         </h1>
-        <button
-          onClick={handleCreate}
-          className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-        >
-          Create Recommendation
-        </button>
+
         {recommendations.length > 0 ? (
           <ul className="space-y-4">
             {recommendations.map((rec) => (
@@ -82,12 +70,12 @@ export default function RecommendationListMyAuthView() {
                 <p className="text-gray-600 mb-2">{rec.text}</p>
                 <p className="text-gray-800 font-medium">{rec.content}</p>
                 <div className="flex space-x-2 mt-4">
-                  <button
-                    onClick={() => handleUpdate(rec._id)}
+                  <Link
+                    to={"/recommendation/update/"+rec._id}
                     className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition"
                   >
                     Update
-                  </button>
+                  </Link>
                   <button
                     onClick={() => handleDelete(rec._id)}
                     className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"

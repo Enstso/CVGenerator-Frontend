@@ -26,9 +26,6 @@ export default function CVListView() {
         fetchCvs();
     }, []);
 
-    // Function to handle CV deletion
-  
-
     if (loading) {
         return (
             <div className="flex justify-center items-center h-full">
@@ -43,7 +40,15 @@ export default function CVListView() {
 
     return (
         <div className="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-md">
-            <h1 className="text-3xl font-bold mb-8 text-gray-800">CV List</h1>
+            <div className="flex justify-between items-center mb-8">
+                <h1 className="text-3xl font-bold text-gray-800">CV List</h1>
+                <Link
+                    to="/login"
+                    className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                >
+                    S'authentifier
+                </Link>
+            </div>
 
             {cvs.length === 0 ? (
                 <p className="text-gray-500 text-center">No CVs available.</p>
