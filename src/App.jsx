@@ -1,35 +1,78 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./components/authentication/auth-context";
+import ProtectedRoute from "./components/authentication/auth-protected";
+import Register from "./views/Authentication/Register";
+import Login from "./views/Authentication/Login";
+import RecommendationListMyAuthView from "./views/Recommendation/ListMyAuth";
+import RecommendationCreate from "./views/Recommendation/Create";
+import CvCreate from "./views/Cv/Create";
+import CvUpdate from "./views/Cv/Update";
+import CVListView from "./views/Cv/List";
+import CVListAuthView from "./views/Cv/ListAuth";
+import CVListMyAuthView from "./views/Cv/ListMyAuth";
+import CVDetailView from "./views/Cv/Detail";
+import Profile from "./views/Profile/profile";
+import Nav from "./components/nav/nav";
+import NotFound from "./views/NotFound";
+import RecommendationListView from "./views/Recommendation/List";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <AuthProvider>
+        <div className="container mx-auto">
+          {/* Render Nav only for authenticated routes */}
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/" element={<CVListView />} />
+
+            <Route
+              path="*"
+              element={
+                <>
+                  <Nav />
+                  <Routes>
+                    <Route path="/cvs/:cvId" element={<CVDetailView />} />
+                    <Route
+                      path="/recommendation/create/:cvId"
+                      element={
+                        <ProtectedRoute>
+                          <RecommendationCreate />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route path="/profile" element={<ProtectedRoute><Profile></Profile></ProtectedRoute>}/>
+                    <Route path="/cvs" element={<ProtectedRoute><CVListAuthView /></ProtectedRoute>} />
+                    <Route path="/myCVs" element={<ProtectedRoute><CVListMyAuthView></CVListMyAuthView></ProtectedRoute>}/>
+                    <Route path="/recommendations/:cvId" element={<ProtectedRoute><RecommendationListView></RecommendationListView></ProtectedRoute>}/>
+                    <Route path="/myRecommendations" element={<ProtectedRoute><RecommendationListMyAuthView></RecommendationListMyAuthView></ProtectedRoute>}/>
+                    <Route
+                      path="/cv/create"
+                      element={
+                        <ProtectedRoute>
+                          <CvCreate />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/cv/update/:cvId"
+                      element={
+                        <ProtectedRoute>
+                          <CvUpdate />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </>
+              }
+            />
+          </Routes>
+        </div>
+      </AuthProvider>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
