@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import { getData, urls,urlApi } from "../../lib/utils";
 
+// context pour l'authentification
+
 export const AuthContext = createContext({
   isLoggedIn: false,
   login: () => {},
